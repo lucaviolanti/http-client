@@ -26,17 +26,17 @@ public class App {
 
     private static void runForClient(RestClient restClient, String uri, Map<String, String> headers, String body) {
         final Map<String, Integer> responses = new HashMap<>();
-        System.out.println(String.format("Start execution for %s", restClient.getClass().getCanonicalName()));
+        System.out.printf("Start execution for %s%n", restClient.getClass().getCanonicalName());
         for (int i = 0; i < REPETITIONS; ++i) {
             final String response = restClient.doPost(uri, headers, body);
             final Integer count = responses.getOrDefault(response, 0);
             responses.put(response, count + 1);
             if (i % (REPETITIONS / 10) == 0) {
-                System.out.println(String.format("%d calls performed", i));
+                System.out.printf("%d calls performed%n", i);
             }
         }
         responses.forEach((response, count) -> {
-            System.out.println(String.format("Response '%s' returned %d times. Frequency: %.5f", response, count, ((double) count) / REPETITIONS));
+            System.out.printf("Response '%s' returned %d times. Frequency: %.5f%n", response, count, ((double) count) / REPETITIONS);
         });
     }
 
